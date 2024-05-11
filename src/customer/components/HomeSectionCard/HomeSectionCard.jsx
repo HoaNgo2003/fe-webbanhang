@@ -9,6 +9,7 @@ const HomeSectionCard = ({product}) => {
     const location = useLocation();
     const dispatch = useDispatch();
     const params = location.pathname.split("/")[2];
+    const jwt = localStorage.getItem("jwt");
     const handleAddToCart =(event)=>{
         // event.preventDefault()
         const data = {productId: params}
@@ -53,7 +54,7 @@ const HomeSectionCard = ({product}) => {
         
       }
     
-    const jwt = localStorage.getItem("jwt");
+    
     return (
         <div onClick={()=>navigate(`/product/${product?._id}`)} className='cursor-pointer 
     flex flex-col items-center bg-white rounded-lg shadow-lg overflow-hidden w-[15rem] mx-3 border border-black'>

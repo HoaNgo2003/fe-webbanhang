@@ -1,9 +1,10 @@
 import React from 'react'
 import {Button, Grid, Typography } from '@mui/material'
+import './footer.css';
 const Footer = () => {
   return (
-    <div>
-      <Grid className='z-index-0 bottom-0 bg-black text-white text-center mt-10'
+    <div className=''>
+      <Grid className='z-index-0 bottom-0 bg-black text-white text-center mt-10 margin'
         container
         sx={{bgcolor:"black",color:"white", py:3}}
       >

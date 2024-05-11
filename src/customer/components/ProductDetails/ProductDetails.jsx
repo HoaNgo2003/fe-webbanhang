@@ -212,7 +212,7 @@ export default function ProductDetails({props}) {
 </section>
 {/* rating and review */}
        <section>
-            <h1 className="font-semibold text-lg pb-4">Đánh giá gần đây</h1>
+            <h1 className="font-semibold text-lg pb-4 mx-10">Đánh giá gần đây</h1>
             <div className="border p-5">
               <ReviewForm/>
               <Grid container spacing={7}>
@@ -237,7 +237,7 @@ export default function ProductDetails({props}) {
        </section>
 {/* san pham tuong tu */}
 <section className="pt-10">
-            <h1 className="font-semibold text-lg pb-4">Sản phẩm tương tự</h1>
+            <h1 className="font-semibold text-lg pb-4 mx-10">Sản phẩm tương tự</h1>
             <div className="px-10 flex flex-wrap space-y-5">
               {truyentuongtu?.map((item)=>
                

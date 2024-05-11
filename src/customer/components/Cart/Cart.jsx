@@ -41,8 +41,8 @@ const Cart = () => {
   const cartItem = cart.cartItem;
   for(let i = 0; i < cartItem.length; i++){
     totalItem += cartItem[i]?.quanity;
-    totalPrice += cartItem[i]?.price*cartItem[i]?.quanity;
-    totalDiscount += cartItem[i]?.discount*cartItem[i]?.quanity;
+    totalPrice += cartItem[i]?.price ;
+    totalDiscount += cartItem[i]?.discount ;
   }
   
   cart.total = totalPrice;
