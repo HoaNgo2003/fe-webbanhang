@@ -1,5 +1,5 @@
 import { API_BASE_URL, api } from "../../config/apiConfig";
-import { CREATE_PRODUCT_FAILURE, CREATE_PRODUCT_REQUEST, CREATE_PRODUCT_SUCCESS, DELETE_PRODUCT_FAILURE, DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS, FIND_PRODUCT_BY_ID_FAILURE, FIND_PRODUCT_BY_ID_REQUEST, FIND_PRODUCT_BY_ID_SUCESS, FIND_PRODUCT_FAILURE, FIND_PRODUCT_REQUEST, FIND_PRODUCT_SUCCESS } from "./ActionType";
+import { CREATE_PRODUCT_FAILURE, CREATE_PRODUCT_REQUEST, CREATE_PRODUCT_SUCCESS, DELETE_PRODUCT_FAILURE, DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS, FIND_PRODUCT_BY_ID_FAILURE, FIND_PRODUCT_BY_ID_REQUEST, FIND_PRODUCT_BY_ID_SUCESS, FIND_PRODUCT_FAILURE, FIND_PRODUCT_REQUEST, FIND_PRODUCT_SUCCESS, UPDATE_PRODUCT_FAILURE, UPDATE_PRODUCT_REQUEST, UPDATE_PRODUCT_SUCCESS } from "./ActionType";
 
 
 export const findProducts = ()=>async(dispatch)=>{
@@ -44,5 +44,14 @@ export const deleteProduct = (productId)=>async(dispatch)=>{
     } catch (error) {
     dispatch({type:DELETE_PRODUCT_FAILURE, payload:error.message});
         
+    }
+}
+export const updateProduct = (req, productId)=>async(dispatch)=>{
+    try{
+        dispatch({type: UPDATE_PRODUCT_REQUEST})
+        const {data} = await api.put(`${API_BASE_URL}/api/admin/products/${productId}`, req);
+        dispatch({type: UPDATE_PRODUCT_SUCCESS, payload:data})
+    }catch(error){
+        dispatch({type:UPDATE_PRODUCT_FAILURE, payload:error.message })
     }
 }

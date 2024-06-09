@@ -12,6 +12,7 @@ import OrdersTable from './components/OrdersTable';
 import CustomerTable from './components/CustomerTable';
 import Dashboard from './components/Dashboard';
 import AdminDashboard from './components/Dashboard';
+import UpdateProductForm from './components/UpdateProduc';
 const menu = [
     {name:"Dashboard", path:"/admin", icon:<DashboardIcon/>},
     {name:"Products", path:"/admin/products",icon:<DashboardIcon/>},
@@ -78,6 +79,7 @@ const Admin = () => {
                 <Route path='/' element={<AdminDashboard/>}></Route>
                 <Route path='/product/create' element={<CreateProductForm/>}></Route>
                 <Route path='/products' element={<ProductsTable/>}></Route>
+                <Route path='/update/:id' element={<UpdateProductForm/>}/>
                 <Route path='/orders' element={<OrdersTable/>}></Route>
                 <Route path='/customers' element={<CustomerTable/>}></Route>
                 </Routes>

@@ -22,7 +22,7 @@ const Delivery = () => {
     }
     const orderData = {address, navigate}
     dispatch(createOrder(orderData))
-     console.log(order)
+    console.log(order)
 
   }
   // console.log(address)

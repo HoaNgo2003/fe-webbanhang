@@ -4,15 +4,21 @@ import {deleteProduct, findProducts} from "../../State/Product/Action.js"
 import {TableContainer,Card,CardHeader,Button,Table,Avatar,TableBody,TableHead, TableRow,TableCell} from '@mui/material'
 import {useDispatch, useSelector} from 'react-redux'
 import { addItemToCart } from '../../State/Cart/Action.js'
+import { useNavigate } from 'react-router-dom'
 const ProductsTable = () => {
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {product} = useSelector(store=>store)
   const handleProductDelete = (productId)=>{
     dispatch(deleteProduct(productId))
   }
+ 
+  const handleProductUpdate = (productId, product)=>{
+    navigate(`/admin/update/${productId}`)
+  }
   useEffect(()=>{
     dispatch(findProducts())
-  },[product.deleteProduct])
+  },[product?.products])
   console.log(product)
   return (
     <div className='p-5 '>
@@ -37,22 +43,27 @@ const ProductsTable = () => {
         </TableHead>
         <TableBody>
           {product?.products?.map((row) => (
+            <>
             <TableRow
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                <Avatar src={row.imageUrl}></Avatar>
+                <Avatar src={row?.imageUrl}></Avatar>
               </TableCell>
               <TableCell component="th" scope="row">
-                {row.title}
+                {row?.title}
               </TableCell>
-              <TableCell align="right">{row.quanity}</TableCell>
-              <TableCell align="right">{row.danhmuc}</TableCell>
-              <TableCell align="right">{row.price}</TableCell>
-              <TableCell align="right">#{row._id}</TableCell>
-            <Button onClick={()=>handleProductDelete(row._id)} variant='outlined'>Xoa</Button>
+              <TableCell align="right">{row?.quanity}</TableCell>
+              <TableCell align="right">{row?.danhmuc}</TableCell>
+              <TableCell align="right">{row?.price}</TableCell>
+              <TableCell align="right">#{row?._id}</TableCell>
+            <Button onClick={()=>handleProductDelete(row?._id)} variant='outlined'>Xoa</Button>
+            <Button  className='my-5' onClick={()=>handleProductUpdate(row?._id, row)} variant='outlined'>Update</Button>
+            
             </TableRow>
+            </>
+            
           ))}
         </TableBody>
       </Table>

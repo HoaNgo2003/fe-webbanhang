@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
-import {useDispatch} from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import { Fragment } from 'react'
 import {Typography,Button, Grid,MenuItem, Select,TextField,InputLabel, FormControl} from '@mui/material'
-import { createProduct } from '../../State/Product/Action'
+import { createProduct, findProductsById, updateProduct } from '../../State/Product/Action'
+import { useParams } from 'react-router-dom'
+import { store } from '../../State/Store'
  
-const CreateProductForm = () => {
+const UpdateProductForm = () => {
+  const {id} = useParams();
+  const products = useSelector(store=>store);
   const [product, setProductData] = useState({
     imageUrl: "",
     brand:"",
@@ -17,28 +21,34 @@ const CreateProductForm = () => {
   })
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
+  useEffect(()=>{
+    const req = {productId: id}
+    console.log(req)
+   dispatch(findProductsById(req));
+   
+  
+  },[])
+  useEffect(()=>{
+    setProductData(products.product.product);
+
+  },[products.product.product])
+  
   const handleChange = (e)=>{
     const {name, value} = e.target;
     setProductData((prevData)=>({
       ...prevData,
       [name]:value,
     }))
+    
   }
-  // const handleDanhMucChange = (e, index)=>{
-  //   let {name, value} = e.target;
-  //   name=e.target.name;
-  //   const danhmuc = [...product.danhmuc];
-  //   danhmuc[index][name] = value;
-  //   setProductData((prevState)=>({
-  //     ...prevState,
-  //     danhmuc: danhmuc
-  //   }))
-  // }
+  
   const handleSubmit = (e)=>{
     e.preventDefault();
     console.log(product)
-    dispatch(createProduct(product))
-    console.log(product)
+    // dispatch(createProduct(product))
+    dispatch(updateProduct(product, id))
+    // console.log(product)
+    console.log(id)
   }
   return (
     <div className='p-10'>
@@ -48,7 +58,7 @@ const CreateProductForm = () => {
         sx={{textAlign:'center'}}
         className='py-10 text-center'
         >
-          Thêm sản phẩm mới
+          Update san pham
         </Typography>
         <form
         onSubmit={handleSubmit}
@@ -60,18 +70,20 @@ const CreateProductForm = () => {
               fullWidth
               label="Image URL"
               name="imageUrl"
-              value={product.imageUrl}
+            
+              value={product?.imageUrl}
               onChange={handleChange}
               />
 
                
             </Grid>
+             
             <Grid item xs={12} sm={6}>
               <TextField
               fullWidth
               label="Brand"
               name="brand"
-              value={product.brand}
+              value={product?.brand}
               onChange={handleChange}
               />
             </Grid>
@@ -80,7 +92,7 @@ const CreateProductForm = () => {
               fullWidth
               label="Title"
               name="title"
-              value={product.title}
+              value={product?.title}
               onChange={handleChange}
               />
             </Grid>
@@ -89,7 +101,7 @@ const CreateProductForm = () => {
               fullWidth
               label="Price"
               name="price"
-              value={product.price}
+              value={product?.price}
               onChange={handleChange}
               type='number'
               />
@@ -99,7 +111,7 @@ const CreateProductForm = () => {
               fullWidth
               label="Discount"
               name="discount"
-              value={product.discount}
+              value={product?.discount}
               onChange={handleChange}
               type='number'
               />
@@ -109,7 +121,7 @@ const CreateProductForm = () => {
               <InputLabel>Danh muc san pham</InputLabel>
               <Select
               name='danhmuc'
-              value={product.danhmuc}
+              value={product?.danhmuc}
               onChange={handleChange}
               label="Danh Muc San pham"
               >
@@ -124,7 +136,7 @@ const CreateProductForm = () => {
               fullWidth
               label="Quanity"
               name="quanity"
-              value={product.quanity}
+              value={product?.quanity}
               onChange={handleChange}
               type='number'
               />
@@ -136,7 +148,7 @@ const CreateProductForm = () => {
               label="Description"
               multiline
               name="description"
-              value={product.description}
+              value={product?.description}
               onChange={handleChange}
               row={3}
                
@@ -149,7 +161,7 @@ const CreateProductForm = () => {
             size='large'
             type='submit'
             >
-              Thêm sản phẩm
+              Update san pham
             </Button>
            </Grid>
           </Grid>
@@ -159,4 +171,4 @@ const CreateProductForm = () => {
   )
 }
 
-export default CreateProductForm
+export default UpdateProductForm
